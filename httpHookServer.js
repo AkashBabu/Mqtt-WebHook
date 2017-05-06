@@ -9,7 +9,7 @@ var mqttHookColl = mongoConfig.mqttHooks.collName
 var mqttHookInterval = config.server.httpHook.mqttHookInterval;
 var port = config.server.httpHook.port[config.env]
 
-var app = express()
+var app = express();
 
 
 app.use(bodyParser.json())
