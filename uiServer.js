@@ -46,7 +46,8 @@ app.use('/portal', portalRouter)
 
 // Error Handlers
 app.use(function(req, res) {
-    res.status(404).send("Page Not Found")
+    res.redirect("/portal/index")
+    // res.status(404).send("Page Not Found")
 })
 app.use(function(err, req, res, next) {
     errLog.error("EXPRESS_ERR-", err);
