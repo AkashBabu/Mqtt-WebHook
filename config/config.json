@@ -1,9 +1,10 @@
 {
+    "env": "DEV",
     "db": {
         "mongo": {
             "url": "mongodb://localhost:27017/mqttWebHook?maxPoolSize=5"
         },
-        "redis" : {
+        "redis": {
             "host": "localhost",
             "port": 6379,
             "family": 4
@@ -16,11 +17,18 @@
             "secret": "7jkkjUIa90hjYUb2nbk"
         }
     },
-    "env": "DEV",
     "server": {
-        "port": {
-            "DEV": 8000,
-            "PROD": 9000
+        "ui": {
+            "port": {
+                "DEV": 8000,
+                "PROD": 9000
+            }
+        },
+        "httpHook": {
+            "port": {
+                "DEV": 8001,
+                "PROD": 9001
+            }
         }
     }
 }

@@ -11,7 +11,7 @@ var logger = require('morgan')
 
 var app =  express()
 var whiteList = ['/portal/login']
-var port = config.server.port[config.env]
+var port = config.server.ui.port[config.env]
 
 app.set("views", path.join(__dirname, "views"))
 app.set("view engine", "ejs")
