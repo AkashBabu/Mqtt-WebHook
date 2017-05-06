@@ -31,6 +31,7 @@
             background-color: rgba(158, 158, 158, 0.2);
         }
     </style>
+    <base href="/portal">
 </head>
 
 <body ng-app="app" ng-controller="NavCtrl as ctrl" layout="column">
@@ -61,7 +62,7 @@
     </md-toolbar>
 
     <div flex layout="row">
-        <md-sidenav flex="15" flex-xs="100" flex-sm="100" flex-gt-lg="10" layout="column" layout-padding layout-align="start center"
+        <md-sidenav ng-cloak flex="15" flex-xs="100" flex-sm="100" flex-gt-lg="10" layout="column" layout-padding layout-align="start center"
             class="md-sidenav-left" md-whiteframe="15" md-is-locked-open="showSidenav" style="overflow-y: auto;">
             <div class="sidenav-item" layout="column" layout-align="start center" ng-click="changeLocation(('dashboard' | routeSegmentUrl))">
                 <img class="png-icon" src="/static/img/list.png" alt="">
