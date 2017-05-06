@@ -19,6 +19,6 @@ app.listen(port, function(err){
     if(err) {
         console.error("Error Starting Http-Hook Server:", err)
     } else {
-        console.log('HTTP-Hook Server running on port:', port);
+        console.log('HTTP-Hook Server listening on port:', port);
     }
 })
