@@ -3,6 +3,7 @@ require("./config/init.globals")
 var mqtt = require('mqtt')
 var express = require('express')
 var bodyParser = require('body-parser')
+var logger = require("morgan")
 
 var userColl = mongoConfig.users.collName
 var mqttHookColl = mongoConfig.mqttHooks.collName
@@ -12,6 +13,7 @@ var port = config.server.httpHook.port[config.env]
 var app = express()
 
 
+app.use(logger('dev'))
 app.use(bodyParser.json())
 
 var mqttBuffer = [] // Buffer(Queue) to Store Mqtt Ping for 1sec
