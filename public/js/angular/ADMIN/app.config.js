@@ -1,10 +1,7 @@
 
-app.config(function ($locationProvider, $routeProvider, $routeSegmentProvider) {
-    // $locationProvider.html5Mode({
-    //     enabled: true,
-    //     requireBase: false    
-    // })
-    // .hashPrefix('!')
+app.config(function ($locationProvider, $routeProvider, $routeSegmentProvider, $mdThemingProvider) {
+
+    $mdThemingProvider.theme('default')
 
     $routeSegmentProvider
         .when("/dashboard", "dashboard")
@@ -24,6 +21,12 @@ app.config(function ($locationProvider, $routeProvider, $routeSegmentProvider) {
         .otherwise({
             redirectTo: "/dashboard"
         })
+    $locationProvider.html5Mode({
+        enabled: true,
+        requireBase: true
+    })
+    .hashPrefix('')
+    // $locationProvider.html5Mode(true)
 })
     .factory("UserInfo", function () {
         this.user = {}
