@@ -31,7 +31,7 @@ app.post("/:uName", function (req, res) {
                 if(req.headers['x-hub-signature']){
                     if (req.headers['x-hub-signature'].split("=")[1] == computedSignature) {
                         testLog.log('Signature Matched');
-                        mqttBuffer.push(hook)
+                        mqttBuffer.push(Object.assign(hook, {uName: req.params.uName}))
                     }
                 }
             })
@@ -119,10 +119,11 @@ setInterval(function(){ // Mqtt Hook Publisher
             var broker = (hook.mqttHook.broker.split("://").length > 1) ? hook.mqttHook.broker.split("://")[1] : hook.mqttHook.broker.split("://")[0]  
             testLog.log('Broker:', broker);
             testLog.log('Hook:', hook);
-        	var client = mqtt.connec("mqtt://" + broker)
+        	var client = mqtt.connect("mqtt://" + broker)
             client.on('connect', function() {
                 testLog.log('Client Connected');
-                client.publish(hook.mqttHook.topic, JSON.stringify({
+                var topic = config.mqttHook.topicBase + "/" + hook.uName + hook.mqttHook.topic
+                client.publish(topic, JSON.stringify({
                     event: hook.httpHook.event
                 }))
             })

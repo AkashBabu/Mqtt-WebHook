@@ -31,5 +31,9 @@
             },
             "mqttHookInterval": 1000
         }
+    },
+    "mqttHook": {
+        "interval": 1000,
+        "topicBase": "/$mqttWebHook"
     }
 }
