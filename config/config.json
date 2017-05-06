@@ -28,7 +28,8 @@
             "port": {
                 "DEV": 8001,
                 "PROD": 9001
-            }
+            },
+            "mqttHookInterval": 1000
         }
     }
 }
