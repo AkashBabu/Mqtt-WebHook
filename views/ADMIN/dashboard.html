@@ -1,11 +1,11 @@
 <md-content layout="column" layout-align="center start" layout-padding md-whiteframe="3">
-    <md-toolbar layout="row" layout-align="start center">
+    <md-toolbar class="md-warn md-hue-1" layout="row" layout-align="start center">
         <span flex>Please Note:</span>
     </md-toolbar>
     <p>
-        WebHook Path Will be: <code ng-cloak>52.39.13.152:9001/{{currUser.uName}}</code>
+        WebHook URL: <code ng-cloak>52.39.13.152:9001/{{currUser.uName}}</code>
         <br> 
-        Mqtt Topic Will be: <code ng-cloak>/{{currUser.uName}}/&lt;MQTT Hook&gt;</code>
+        Mqtt Topic: <code ng-cloak>/$mqttWebHook/{{currUser.uName}}/&lt;MQTT Hook&gt;</code>
     </p>
 </md-content>
 <br>
@@ -14,7 +14,7 @@
 <div md-whiteframe="5">
     <md-table-container>
         <table md-table md-progress="promise">
-            <thead md-head md-order="query.sort" md-on-reorder="getList" md-colors="{background: 'cyan'}">
+            <thead md-head md-order="query.sort" md-on-reorder="getList" md-colors="{background: 'cyan-A700-0.2'}">
                 <tr md-row>
                     <th md-column md-order-by="name"><span>Name</span></th>
                     <th md-column md-order-by="httpHookEvent"><span>WebHook Event(event:reponame:ref)</span></th>
@@ -83,11 +83,14 @@
             </md-input-container>
             <md-input-container class="md-block">
                 <label>Web Hook (event:reponame:ref)</label>
-                <input type="text" name="webHook" ng-model="record.httpHook.event" required >
-                <div ng-messages="recordForm.webHook.$error" role="alert" multiple="">
-                    <div ng-message="required">
-                        Please enter a WebHook Event
+                <input type="text" name="webHook" ng-pattern="/^[^:]+:[^:]+:[^:]+$/" ng-model="record.httpHook.event" required >
+                <div ng-messages="recordForm.webHook.$error" role="alert" multiple="false">
+                    <div ng-message="pattern">
+                        Invalid WehHook. (Ex: push:example:refs/heads/master)
                     </div>
+                    <!--<div ng-message="required">
+                        Please enter a WebHook Event
+                    </div>-->
                 </div>
             </md-input-container>
             <md-input-container class="md-block">
@@ -104,17 +107,20 @@
                 <input type="text" name="broker" ng-model="record.mqttHook.broker" required >
                 <div ng-messages="recordForm.broker.$error" role="alert" multiple="">
                     <div ng-message="required">
-                        Please enter a Broker
+                        Please enter a MQTT Broker
                     </div>
                 </div>
             </md-input-container>
             <md-input-container class="md-block">
                 <label>MQTT Topic</label>
-                <input type="text" name="topic" ng-model="record.mqttHook.topic" required >
+                <input type="text" name="topic" ng-pattern="/^\/[^#+]+$/" ng-model="record.mqttHook.topic" required >
                 <div ng-messages="recordForm.topic.$error" role="alert" multiple="">
-                    <div ng-message="required">
-                        Please enter a MQTT Topic
+                    <div ng-message="pattern">
+                        Invalid Topic. (Ex: /example/topic)
                     </div>
+                    <!--<div ng-message="required">
+                        Please enter a MQTT Topic
+                    </div>-->
                 </div>
             </md-input-container>
             <div layout="row" layout-align="center" layout-fill ng-if="formErrMsg" role="alert">
@@ -123,7 +129,7 @@
           </form>
        </md-dialog-content>
        <md-dialog-actions>
-          <md-button ng-if="addRecordForm" ng-disabled="!recordForm.$valid" ng-click="saveRecord()" class="dialog-class md-raised" md-colors="{background: 'green'}" aria-label="Save">Save</md-button>
+          <md-button ng-if="addRecordForm" ng-disabled="!recordForm.$valid" ng-click="saveRecord()" class="dialog-class md-raised" md-colors="{background: 'default-green'}" aria-label="Save">Save</md-button>
           <md-button ng-if="!addRecordForm" ng-disabled="!recordForm.$valid" ng-click="updateRecord()" class="dialog-class md-raised md-primary" aria-label="Update">Update</md-button>
           <md-button ng-click="cancelDialog()" class="dialog-class" aria-label="Cancel"> Cancel </md-button>
        </md-dialog-actions>
