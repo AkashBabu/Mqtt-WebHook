@@ -1,0 +1,41 @@
+{
+  "name": "mqtt-web-hook",
+  "version": "0.0.0",
+  "description": "MQTT WebHooks for Git",
+  "main": "server.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AkashBabu/Mqtt-WebHook.git"
+  },
+  "keywords": [
+    "MQTT",
+    "WebHooks",
+    "GIT",
+    "GITHUB",
+    "GITLAB"
+  ],
+  "author": "Akash Babu <001akashbabu@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AkashBabu/Mqtt-WebHook/issues"
+  },
+  "homepage": "https://github.com/AkashBabu/Mqtt-WebHook#readme",
+  "dependencies": {
+    "async": "^2.4.0",
+    "body-parser": "^1.17.1",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.5.6",
+    "express": "^4.15.2",
+    "jsonfile": "^3.0.0",
+    "jwt-simple": "^0.5.1",
+    "logger-switch": "^3.0.0",
+    "moment": "^2.18.1",
+    "mongojs": "^2.4.0",
+    "morgan": "^1.8.1",
+    "serve-favicon": "^2.4.2",
+    "server-helper": "^0.9.1"
+  }
+}

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/lib/angular-material/angular-material.min.css">
+    <style>
+        body {
+            background-color: yellow;
+        }
+        
+        .form {
+            background-color: yellow;
+        }
+    </style>
+</head>
+
+<body ng-app="app" ng-controller="loginCtrl as ctrl">
+
+    <md-toolbar class="md-accent md-whiteframe-5dp" ng-cloak="ng-cloak">
+        <div class="md-toolbar-tools">
+            <div layout="row" layout-align="center center" layout-fill>
+                <h1><span>MQTT WebHook</span></h1>
+            </div>
+        </div>
+    </md-toolbar>
+
+    <md-content class="form" layout="row" layout-align="space-around" layout-padding="layout-padding" ng-cloak="ng-cloak" class="login-form">
+        <md-card ng-show="showLoginForm" class="md-whiteframe-10dp" flex="flex" flex-gt-sm="50" flex-gt-md="33">
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2><span>Login Form</span></h2>
+                </div>
+            </md-toolbar>
+            <md-card-content>
+                <form name="LoginForm">
+                    <md-input-container class="md-block">
+                        <label>Username</label>
+                        <input type="text" name="uName" ng-model="loginUser.uName" required="" />
+                        <div ng-messages="LoginForm.uName.$error" role="alert" multiple="">
+                            <div ng-message="required" class="my-message">Please enter your Username</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Password</label>
+                        <input type="password" name="password" ng-model="loginUser.pwd" required="" md-maxlength="16" />
+                        <div ng-messages="LoginForm.password.$error" role="alert" multiple="">
+                            <div ng-message="required" class="my-message">Please enter your password.</div>
+                            <div ng-message="md-maxlength" class="my-message">Too long.</div>
+                        </div>
+                    </md-input-container>
+                    <div layout="row" layout-align="center" layout-fill ng-if="invalidCredentials" role="alert">
+                        <span>Invalid UserName or Email ID</span>
+                    </div>
+                    <div layout="row" layout-align="space-between center">
+                        <md-button ng-disabled="!LoginForm.$valid" ng-click="ctrl.login()" class="md-raised md-primary">&nbsp Login &nbsp</md-button>
+                        <md-button ng-click="ctrl.showLogin(false)" class="md-raised">&nbsp Register &nbsp</md-button>
+                    </div>
+                </form>
+            </md-card-content>
+        </md-card>
+        <md-card ng-cloak ng-hide="showLoginForm" class="md-whiteframe-10dp" flex="flex" flex-gt-sm="50" flex-gt-md="33">
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2><span>Register Form</span></h2>
+                </div>
+            </md-toolbar>
+            <md-card-content>
+                <form name="RegForm">
+                    <md-input-container class="md-block">
+                        <label>Name</label>
+                        <input type="text" name="name" ng-model="registerUser.name" required="" />
+                        <div ng-messages="RegForm.name.$error" role="alert" multiple="">
+                            <div ng-message="required" class="my-message">Please enter your name</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Username</label>
+                        <input type="text" name="uName" ng-model="registerUser.uName" required="" />
+                        <div ng-messages="RegForm.uName.$error" role="alert" multiple="">
+                            <div ng-message="required" class="my-message">Please pick a Username</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Email</label>
+                        <input type="text" name="email" ng-model="registerUser.email" required="" />
+                        <div ng-messages="RegForm.email.$error" role="alert" multiple="">
+                            <div ng-message="required" class="my-message">Please enter your email.</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Password</label>
+                        <input type="password" name="password" ng-model="registerUser.pwd" required="" md-maxlength="16" />
+                        <div ng-messages="RegForm.password.$error" role="alert" multiple="">
+                            <div ng-message="required" class="my-message">Please enter your password.</div>
+                            <div ng-message="md-maxlength" class="my-message">Too long.</div>
+                        </div>
+                    </md-input-container>
+                    <div layout="row" layout-align="center" layout-fill ng-if="formErrMsg" role="alert">
+                        <span ng-bind="formErrMsg"></span>
+                    </div>
+                    <div layout="row" layout-align="space-between center">
+                        <md-button ng-disabled="!RegForm.$valid" ng-click="ctrl.register()" class="md-raised md-primary">&nbsp Register &nbsp</md-button>
+                        <md-button ng-click="ctrl.showLogin(true)" class="md-raised">&nbsp Login &nbsp</md-button>
+                    </div>
+                </form>
+            </md-card-content>
+        </md-card>
+    </md-content>
+
+    <script src='/static/lib/angular/angular.min.js' charset='utf-8'></script>
+    <script src='/static/lib/angular/angular-aria.min.js' charset='utf-8'></script>
+    <script src='/static/lib/angular/angular-animate.min.js' charset='utf-8'></script>
+    <script src='/static/lib/angular/angular-resource.min.js' charset='utf-8'></script>
+    <script src='/static/lib/angular-material/angular-material.min.js' charset='utf-8'></script>
+
+    <script>
+            angular.module('app', ['ngMaterial', 'ngResource','ngAnimate','ngAria'])
+                    .controller("loginCtrl", function($scope, $window, $timeout, loginService) {
+                        console.log('Login Controller');
+                        $scope.loginUser = {}
+                        $scope.registerUser = {}
+                        $scope.invalidCredentials = false
+                        var invalidCredTP, formErrTP;
+                        $scope.showLoginForm = true;
+
+                        this.showLogin = function(show) {
+                            $scope.showLoginForm = show;
+                        }
+
+                        this.register = function() {
+                            console.log('Clicked Register');
+                            loginService.register($scope.registerUser, function(data) {
+
+                                $window.location.href = "/portal/index"
+
+                            }, function(res) {
+                                console.log(arguments);
+                                $scope.formErrMsg = res.data.data
+                                $timeout.cancel(formErrTP)
+                                formErrTP = $timeout(function(){
+                                    $scope.formErrMsg = false
+                                }, 5000)
+                            })
+                        }
+
+                        this.login = function(){
+                            console.log('Clicked Login');
+                            loginService.login($scope.loginUser, function(data) {
+
+                                $window.location.href = "/portal/index"
+
+                            }, function(data) {
+                                $scope.invalidCredentials = true
+                                if(invalidCredTP){
+                                    $timeout.cancel(invalidCredTP)
+                                }
+                                invalidCredTP = $timeout(function(){
+                                    $scope.invalidCredentials = false
+                                }, 5000)
+                            })
+                        }
+                    })
+                    .service("loginService", function($resource) {
+                        return $resource("/login", {}, {
+                            login: {
+                                method: "POST"
+                            },
+                            register: {
+                                url: "/register",
+                                method: "POST"
+                            }
+                        })
+                    })
+        </script>
+</body>
+
+</html>

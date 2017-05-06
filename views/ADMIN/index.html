@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/lib/angular-material/angular-material.min.css">
+    <link rel="stylesheet" href="/static/lib/angular-material/angular-material-icons.css">
+    <link rel="stylesheet" href="/static/lib/angular-material-data-table/md-data-table.min.css">
+    <style>
+        body {
+            background-color: yellow;
+        }
+        
+        .form {
+            background-color: yellow;
+        }
+        
+        md-toast.md-center {
+            left: 50%;
+            transform: translate3d(-50%, 0, 0);
+        }
+        
+        md-sidenav a {
+            font-size: 120%;
+            font-weight: bold;
+        }
+        
+        md-sidenav .sidenav-item:hover {
+            background-color: rgba(158, 158, 158, 0.2);
+        }
+    </style>
+</head>
+
+<body ng-app="app" ng-controller="NavCtrl as ctrl" layout="column">
+
+    <md-toolbar class="md-accent" ng-cloak="ng-cloak">
+        <div class="md-toolbar-tools">
+            <div layout="row" layout-align="space-between center" layout-fill>
+                <md-button class="md-icon-button" md-ripple-size="auto" md-no-ink="false" aria-label="button-label" ng-click="openSidenav()">
+                    <!--<i class="material-icons">dehaze</i>-->
+                    <md-icon class="material-icons step">dehaze</md-icon>
+                </md-button>
+                <h1><span>MQTT WebHook - ADMIN</span></h1>
+                <md-menu-bar>
+                    <md-menu>
+                        <md-button aria-label="label" class="md-icon-button" md-no-ink ng-click="$mdMenu.open()" md-prevent-menu-close="md-prevent-menu-close">
+                            <md-icon class="material-icons step">person</md-icon>
+                            <!--<i class="material-icons">person</i>-->
+                        </md-button>
+                        <md-menu-content width="2">
+                            <md-menu-item>
+                                <md-button aria-label="Logout" ng-click="logout()"> Logout </md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+                </md-menu-bar>
+            </div>
+        </div>
+    </md-toolbar>
+
+    <div flex layout="row">
+        <md-sidenav flex="15" flex-xs="100" flex-sm="100" flex-gt-lg="10" layout="column" layout-padding layout-align="start center"
+            class="md-sidenav-left" md-whiteframe="15" md-is-locked-open="showSidenav" style="overflow-y: auto;">
+            <div class="sidenav-item" layout="column" layout-align="start center" ng-click="changeLocation(('dashboard' | routeSegmentUrl))">
+                <img class="png-icon" src="/static/img/list.png" alt="">
+                <md-button flex="10" aria-label="Dashboard" ng-href="{{'#!' + ('dashboard' | routeSegmentUrl)}}">
+                    <!--<md-icon aria-label="dashboard" class="material-icons">color_lens</md-icon>-->
+                    Dashboard </md-button>
+            </div>
+            <md-divider style='width:100%;'></md-divider>
+            <!--<md-button flex="10"  aria-label="History" ng-href="{{'#!' + ('history' | routeSegmentUrl)}}">
+                     <md-icon aria-label="history" class="material-icons">av_timer</md-icon>
+                History </md-button>-->
+
+            <!--<div layout="row" layout-align="start center" layout-align-xs="center center" layout-align-sm="center center" layout-align-gt-sm="start center">
+            </div>
+            <div layout="row" layout-align="start center" layout-align-xs="center center" layout-align-sm="center center" layout-align-gt-sm="start center">
+            </div>-->
+        </md-sidenav>
+        <md-content flex class="green" layout-padding style="overflow-y: auto;">
+            <div app-view-segment="0"></div>
+        </md-content>
+
+    </div>
+
+    <!--other lib-->
+    <script src='/static/lib/moment/moment.min.js' charset='utf-8'></script>
+
+    <!--angular lib-->
+    <script src='/static/lib/angular/angular.min.js' charset='utf-8'></script>
+    <script src='/static/lib/angular/angular-aria.min.js' charset='utf-8'></script>
+    <script src='/static/lib/angular/angular-animate.min.js' charset='utf-8'></script>
+    <script src='/static/lib/angular/angular-route.min.js' charset='utf-8'></script>
+    <script src='/static/lib/angular/angular-route-segment.min.js' charset='utf-8'></script>
+    <script src='/static/lib/angular/angular-resource.min.js' charset='utf-8'></script>
+    <script src='/static/lib/angular-material/angular-material.min.js' charset='utf-8'></script>
+    <script src='/static/lib/angular-material/angular-material-icons.min.js' charset='utf-8'></script>
+    <script src='/static/lib/angular-material-data-table/md-data-table.min.js' charset='utf-8'></script>
+
+    <!--angular app-->
+    <script src='/static/js/angular/ADMIN/app.js' charset='utf-8'></script>
+    <script src='/static/js/angular/ADMIN/app.config.js' charset='utf-8'></script>
+    <script src='/static/js/angular/ADMIN/app.directive.js' charset='utf-8'></script>
+    <script src='/static/js/angular/ADMIN/app.filter.js' charset='utf-8'></script>
+
+    <!--components-->
+    <script src='/static/js/angular/ADMIN/components/navigation/ctrl.js' charset='utf-8'></script>
+
+    <script src='/static/js/angular/ADMIN/components/logout/service.js' charset='utf-8'></script>
+
+    <script src='/static/js/angular/ADMIN/components/dashboard/ctrl.js' charset='utf-8'></script>
+    <script src='/static/js/angular/ADMIN/components/dashboard/service.js' charset='utf-8'></script>
+
+    <script src='/static/js/angular/ADMIN/components/history/ctrl.js' charset='utf-8'></script>
+    <script src='/static/js/angular/ADMIN/components/history/service.js' charset='utf-8'></script>
+
+</body>
+
+</html>

@@ -1,0 +1,8 @@
+{
+    "users": {
+        "collName": "users"
+    },
+    "mqttHooks": {
+        "collName": "mqttHooks"
+    }
+}

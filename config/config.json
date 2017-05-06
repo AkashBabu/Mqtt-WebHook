@@ -1,0 +1,26 @@
+{
+    "db": {
+        "mongo": {
+            "url": "mongodb://localhost:27017/mqttWebHook?maxPoolSize=5"
+        },
+        "redis" : {
+            "host": "localhost",
+            "port": 6379,
+            "family": 4
+        }
+    },
+    "token": {
+        "secret": "aK789BJknjhIU88Hbdsj9o",
+        "validity": 1,
+        "cookie": {
+            "secret": "7jkkjUIa90hjYUb2nbk"
+        }
+    },
+    "env": "DEV",
+    "server": {
+        "port": {
+            "DEV": 8000,
+            "PROD": 9000
+        }
+    }
+}

@@ -1,0 +1,130 @@
+<md-content layout="column" layout-align="center start" layout-padding md-whiteframe="3">
+    <md-toolbar layout="row" layout-align="start center">
+        <span flex>Please Note:</span>
+    </md-toolbar>
+    <p>
+        WebHook Path Will be: <code>52.39.13.152:9001/&lt;username&gt;</code>
+        <br> Mqtt Topic Will be: <code>/&lt;username&gt;/&lt;MQTT Hook&gt;</code>
+    </p>
+</md-content>
+<br>
+<br>
+
+<div md-whiteframe="5">
+    <md-table-container>
+        <table md-table md-progress="promise">
+            <thead md-head md-order="query.sort" md-on-reorder="getList" md-colors="{background: 'cyan'}">
+                <tr md-row>
+                    <th md-column md-order-by="name"><span>Name</span></th>
+                    <th md-column md-order-by="httpHookEvent"><span>WebHook Event(event:reponame:ref)</span></th>
+                    <th md-column md-order-by="httpHookSecret"><span>Secret</span></th>
+                    <th md-column><span>Broker</span></th>
+                    <th md-column md-order-by="mqttHook">Mqtt Hook</th>
+                    <th md-column md-order-by="lastPinged">Enable/Disable</th>
+                    <th md-column>Actions</th>
+                </tr>
+            </thead>
+            <tbody md-body>
+                <tr md-row ng-repeat="record in records.list">
+                    <td md-cell>{{record.name}}</td>
+                    <td md-cell>{{record.httpHook.event}}</td>
+                    <td md-cell>{{record.httpHook.secret}}</td>
+                    <td md-cell>{{record.mqttHook.broker}}</td>
+                    <td md-cell>{{record.mqttHook.topic}}</td>
+                    <td md-cell>
+                        <md-switch md-no-ink ng-model="record.enabled" ng-change="changeEnabled(record)" aria-label="enabled"></md-switch>
+                    </td>
+                    <td md-cell>
+                        <div layout="row">
+                            <md-button id="{{'editRecord' + $index}}" aria-label="edit" class="md-icon-button" md-color='{color: "blue-grey"}' ng-click="editRecordDialog($event, record, $index)">
+                                <md-icon class="material-icons">mode_edit</md-icon>
+                            </md-button>
+                            <md-button aria-label="delete" class="md-icon-button" md-color='{color: "red"}' ng-click="removeRecord(record, $index)">
+                                <md-icon class="material-icons">delete</md-icon>
+                            </md-button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </md-table-container>
+    <div layout="row" layout-align="space-between center">
+        <md-button ng-show="showAddRecord" id="addRecord" class="md-fab md-mini" md-colors="{background: 'green'}" aria-label="Add-Record"
+            md-no-ink ng-click="addRecordDialog($event)">
+            <md-icon aria-label="add_record" class="material-icons">add</md-icon>
+        </md-button>
+        <md-button ng-hide="showAddRecord" id="deleteRecord" class="md-icon-button" md-colors="{color: 'blue-grey'}" aria-label="Delete-Record"
+            md-no-ink ng-click="removeRecords()">
+            <md-icon aria-label="delete_records" class="material-icons">delete</md-icon>
+        </md-button>
+        <md-table-pagination flex md-limit="query.recordsPerPage" md-limit-options="[2, 5, 10, 15]" md-page="query.pageNo" md-total="{{records.count}}"
+            md-on-paginate="getList" md-page-select></md-table-pagination>
+    </div>
+
+</div>
+
+<script type="text/ng-template" id="recordForm.html">
+    <md-dialog aria-label="Add Record" layout-padding flex="40" flex-sm="80" flex-xs="80">
+        <div layout="row" layout-align="center center">
+            <h2 ng-cloak ng-if="addRecordForm" class="md-title">Add Record Form</h2>
+            <h2 ng-cloak ng-if="!addRecordForm" class="md-title">Edit Record Form</h2>
+        </div>
+       <md-dialog-content>
+          <form name="recordForm" ng-cloak>
+            <md-input-container class="md-block">
+                <label>Name</label>
+                <input type="text" name="name" md-autofocus ng-model="record.name" required >
+                <div ng-messages="recordForm.name.$error" role="alert" multiple="">
+                    <div ng-message="required">
+                        Please enter a Name
+                    </div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Web Hook (event:reponame:ref)</label>
+                <input type="text" name="webHook" ng-model="record.httpHook.event" required >
+                <div ng-messages="recordForm.webHook.$error" role="alert" multiple="">
+                    <div ng-message="required">
+                        Please enter a WebHook Event
+                    </div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>WebHook - Secret</label>
+                <input type="text" name="secret" ng-model="record.httpHook.secret" required >
+                <div ng-messages="recordForm.secret.$error" role="alert" multiple="">
+                    <div ng-message="required">
+                        Please enter a Secret for Http Hook
+                    </div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>MQTT Broker</label>
+                <input type="text" name="broker" ng-model="record.mqttHook.broker" required >
+                <div ng-messages="recordForm.broker.$error" role="alert" multiple="">
+                    <div ng-message="required">
+                        Please enter a Broker
+                    </div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>MQTT Topic</label>
+                <input type="text" name="topic" ng-model="record.mqttHook.topic" required >
+                <div ng-messages="recordForm.topic.$error" role="alert" multiple="">
+                    <div ng-message="required">
+                        Please enter a MQTT Topic
+                    </div>
+                </div>
+            </md-input-container>
+            <div layout="row" layout-align="center" layout-fill ng-if="formErrMsg" role="alert">
+                <span ng-bind="formErrMsg"></span>
+            </div>
+          </form>
+       </md-dialog-content>
+       <md-dialog-actions>
+          <md-button ng-if="addRecordForm" ng-disabled="!recordForm.$valid" ng-click="saveRecord()" class="dialog-class md-raised" md-colors="{background: 'green'}" aria-label="Save">Save</md-button>
+          <md-button ng-if="!addRecordForm" ng-disabled="!recordForm.$valid" ng-click="updateRecord()" class="dialog-class md-raised md-primary" aria-label="Update">Update</md-button>
+          <md-button ng-click="cancelDialog()" class="dialog-class" aria-label="Cancel"> Cancel </md-button>
+       </md-dialog-actions>
+    </md-dialog>
+</script>
