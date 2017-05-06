@@ -40,7 +40,7 @@ app.post("/:uName", function(req, res) {
 function validateSecret (req, cb) {
     var crypto = require('crypto')
     var hmac = crypto.createHmac('sha1', secretKey)
-    var computedKey = hmac.update(Buffer.from(JSON.stringify(req.body), 'utf-8'), 'utf-8').digert('hex')
+    var computedKey = hmac.update(Buffer.from(JSON.stringify(req.body), 'utf-8'), 'utf-8').digest('hex')
     console.log('Computed Secret:', computedKey);
 }
 
