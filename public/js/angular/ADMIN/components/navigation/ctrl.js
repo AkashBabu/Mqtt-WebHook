@@ -1,7 +1,8 @@
 app.controller("NavCtrl", function($window, $location, $scope, $mdSidenav, $mdMedia, logoutService) {
     console.log('Navigation Controller');
 
-    $scope.showSidenav = $mdMedia('gt-md')
+    // $scope.showSidenav = $mdMedia('gt-md')
+    $scope.showSidenav = false
 
     $scope.openSidenav = function() {
         $scope.showSidenav = !$scope.showSidenav
