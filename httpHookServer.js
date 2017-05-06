@@ -11,7 +11,7 @@ var app = express()
 var secretKey = "asdfASDF@1234"
 
 var jsonfile = require("jsonfile")
-var configFile = __dirname + "/config/config.json";
+var configFile = __dirname + "/config/config.json"
 
 var config = jsonfile.readFileSync(configFile)
 
