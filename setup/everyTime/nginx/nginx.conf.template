@@ -81,7 +81,7 @@ http {
             ssl_certificate {{sslDir}}/domain.crt;
             ssl_certificate_key {{sslDir}}/domain.key;
 
-            location ~^/[api|portal|static].* {
+            location ~^/(api|portal|static).* {
 
                         if ($request_uri ~* ".(eot|ttf|woff|woff2|jpg|svg|jpeg|png|gif|ico|css|js)$") {
                             expires 1d;

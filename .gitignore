@@ -1,3 +1,4 @@
 .vscode
 node_modules/
 Test/
+setup/everyTime/nginx/nginx.conf
