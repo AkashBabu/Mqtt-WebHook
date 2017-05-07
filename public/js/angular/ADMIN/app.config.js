@@ -21,11 +21,11 @@ app.config(function ($locationProvider, $routeProvider, $routeSegmentProvider, $
         .otherwise({
             redirectTo: "/dashboard"
         })
-    $locationProvider.html5Mode({
-        enabled: true,
-        requireBase: true
-    })
-    .hashPrefix('')
+    // $locationProvider.html5Mode({
+    //     enabled: true,
+    //     requireBase: true
+    // })
+    // .hashPrefix('')
     // $locationProvider.html5Mode(true)
 })
     .factory("UserInfo", function () {

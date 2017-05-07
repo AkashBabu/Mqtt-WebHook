@@ -17,7 +17,7 @@ app.controller("NavCtrl", function($window, $location, $scope, $mdSidenav, $mdMe
     }
 
     $scope.changeLocation = function(url) {
-        // url = '#!' + url
+        url = '#!' + url
         console.log('Url in change location:', url);
         $location.path(url);
     }
