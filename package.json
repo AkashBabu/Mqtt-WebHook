@@ -29,6 +29,7 @@
     "cookie-parser": "^1.4.3",
     "ejs": "^2.5.6",
     "express": "^4.15.2",
+    "handlebars": "^4.0.8",
     "jsonfile": "^3.0.0",
     "jwt-simple": "^0.5.1",
     "logger-switch": "^3.0.0",
