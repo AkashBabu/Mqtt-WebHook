@@ -30,14 +30,14 @@ app.post("/:uName", function (req, res) {
                 var crypto = require('crypto')
                 var hmac = crypto.createHmac('sha1', hook.httpHook.secret)
                 var computedSignature = hmac.update(Buffer.from(JSON.stringify(req.body), 'utf-8'), 'utf-8').digest('hex')
-                if(req.headers['x-hub-signature']){
+                if (req.headers['x-hub-signature']) {
                     if (req.headers['x-hub-signature'].split("=")[1] == computedSignature) {
                         testLog.log('Signature Matched');
-                        mqttBuffer.push(Object.assign(hook, {uName: req.params.uName}))
+                        mqttBuffer.push(Object.assign(hook, { uName: req.params.uName }))
                     } else {
                         testLog.log('Signature Did not match');
                     }
-                } 
+                }
             })
             res.status(200).send("Success")
         }
@@ -69,12 +69,15 @@ function getUser(cb) {
 function getHooks(user, cb) {
     var req = this;
     var event = getEvent(req)
-
-    db.collection(mqttHookColl).find({ // find the matching event, that is enabled
+    genLog.log('Got Event:', event);
+    var query = { // find the matching event, that is enabled
         user: db.ObjectId(user._id),
         "httpHook.event": event,
         enabled: true,
-    }, function (err, hooks) {
+    }
+    testLog.log('query for hooks:', query);
+
+    db.collection(mqttHookColl).find(query, function (err, hooks) {
         if (err) {
             errLog.error(err)
         }
@@ -115,25 +118,25 @@ app.listen(port, function (err) {
     }
 })
 
-setInterval(function(){ // Mqtt Hook Publisher
+setInterval(function () { // Mqtt Hook Publisher
     var len = mqttBuffer.length
-    for(var i = 0; i < len; i++) {
+    for (var i = 0; i < len; i++) {
         var hook = mqttBuffer.shift()
         try { // Start a new client for each ping
-            var broker = (hook.mqttHook.broker.split("://").length > 1) ? hook.mqttHook.broker.split("://")[1] : hook.mqttHook.broker.split("://")[0]  
+            var broker = (hook.mqttHook.broker.split("://").length > 1) ? hook.mqttHook.broker.split("://")[1] : hook.mqttHook.broker.split("://")[0]
             testLog.log('Broker:', broker)
             testLog.log('Hook:', hook)
-        	var client = mqtt.connect("mqtt://" + broker)
-            client.on('connect', function() {
+            var client = mqtt.connect("mqtt://" + broker)
+            client.on('connect', function () {
                 // testLog.log('Client Connected');
                 var topic = config.mqttHook.topicBase + "/" + hook.uName + hook.mqttHook.topic;
                 client.publish(topic, JSON.stringify({
                     event: hook.httpHook.event
                 }))
             })
-        } catch(err) {
+        } catch (err) {
             errLog.error(err);
-            errLog.error('Failed to Publish Event:', hook.httpHook.event, 'on Topic:', hook.mqttHook.topic, 'via Broker:', hook.mqttHook.broker );
+            errLog.error('Failed to Publish Event:', hook.httpHook.event, 'on Topic:', hook.mqttHook.topic, 'via Broker:', hook.mqttHook.broker);
         }
     }
 }, mqttHookInterval)
