@@ -120,7 +120,7 @@ setInterval(function(){ // Mqtt Hook Publisher
         try { // Start a new client for each ping
             var broker = (hook.mqttHook.broker.split("://").length > 1) ? hook.mqttHook.broker.split("://")[1] : hook.mqttHook.broker.split("://")[0]  
             testLog.log('Broker:', broker);
-            testLog.log('Hook:', hook);
+            testLog.log('Hook:', hook)
         	var client = mqtt.connect("mqtt://" + broker)
             client.on('connect', function() {
                 testLog.log('Client Connected');
