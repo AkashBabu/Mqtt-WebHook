@@ -7,7 +7,7 @@ var logger = require("morgan")
 
 var userColl = mongoConfig.users.collName
 var mqttHookColl = mongoConfig.mqttHooks.collName
-var mqttHookInterval = config.server.httpHook.mqttHookInterval;
+var mqttHookInterval = config.mqttHook.interval;
 var port = config.server.httpHook.port[config.env]
 
 var app = express()
@@ -124,7 +124,7 @@ setInterval(function(){ // Mqtt Hook Publisher
         	var client = mqtt.connect("mqtt://" + broker)
             client.on('connect', function() {
                 testLog.log('Client Connected');
-                var topic = config.mqttHook.topicBase + "/" + hook.uName + hook.mqttHook.topic
+                var topic = config.mqttHook.topicBase + "/" + hook.uName + hook.mqttHook.topic;
                 client.publish(topic, JSON.stringify({
                     event: hook.httpHook.event
                 }))
