@@ -80,7 +80,7 @@ and copy the newly generate file to /etc/nginx
 <hr/>
 
 ### Start App
-> pm2 start ${WORKSPACE_ROOT}/ecosystem.json  
+> pm2 startOrRestart ${WORKSPACE_ROOT}/ecosystem.json  
 
 Check logs
 > pm2 logs  
