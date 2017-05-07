@@ -14,7 +14,9 @@ var app = express()
 
 // This is just to Test the Hook
 app.use(logger('dev'))
-app.use(bodyParser.json())
+app.use(bodyParser.json({
+    limit: '1mb'
+}))
 
 var mqttBuffer = [] // Buffer(Queue) to Store Mqtt Ping for 1sec
 app.post("/:uName", function (req, res) {
@@ -93,12 +95,24 @@ function getHooks(user, cb) {
 function getEvent(req) {
     var type = req.headers['x-github-event']
     var reponame = ""
-    if (req.body && req.body.repository && req.body.repository.name) {
-        reponame = req.body.repository.name
-    }
-    var ref = ""
-    if (req.body && req.body.ref) {
-        ref = req.body.ref
+    if(req.body) {
+        if(req.body.repository) {
+            if(req.body.repository.name) {
+                 reponame = req.body.repository.name;
+            } else {
+                errLog.error('Undefined req.body.repository.name');
+            }
+        } else {
+            errLog.error('Undefined req.body.repository');
+        }
+
+        if(req.body.ref) {
+            ref = req.body.ref;
+        } else {
+            errLog.error('Undefined req.body.ref');
+        }
+    } else {
+        errLog.error('Undefined req.body');
     }
 
     return type + ":" + reponame + ":" + ref
