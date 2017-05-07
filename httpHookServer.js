@@ -95,6 +95,7 @@ function getHooks(user, cb) {
 function getEvent(req) {
     var type = req.headers['x-github-event']
     var reponame = ""
+    var ref = ""
     if(req.body) {
         if(req.body.repository) {
             if(req.body.repository.name) {
