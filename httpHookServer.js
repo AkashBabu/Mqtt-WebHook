@@ -96,21 +96,24 @@ function getEvent(req) {
     var type = req.headers['x-github-event']
     var reponame = ""
     var ref = ""
-    if(req.body) {
-        if(req.body.repository) {
-            if(req.body.repository.name) {
-                 reponame = req.body.repository.name;
+    if (req.body) {
+        if (req.body.repository) {
+            if (req.body.repository.name) {
+                reponame = req.body.repository.name;
             } else {
                 errLog.error('Undefined req.body.repository.name');
+                errLog.error('body:', req.body);
             }
         } else {
             errLog.error('Undefined req.body.repository');
+            errLog.error('body:', req.body);
         }
 
-        if(req.body.ref) {
+        if (req.body.ref) {
             ref = req.body.ref;
         } else {
             errLog.error('Undefined req.body.ref');
+            errLog.error('body:', req.body);
         }
     } else {
         errLog.error('Undefined req.body');
