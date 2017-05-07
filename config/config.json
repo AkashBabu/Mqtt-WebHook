@@ -21,13 +21,13 @@
         "ui": {
             "port": {
                 "DEV": 8000,
-                "PROD": 8080
+                "PROD": 8000
             }
         },
         "httpHook": {
             "port": {
                 "DEV": 8001,
-                "PROD": 8081
+                "PROD": 8001
             },
             "mqttHookInterval": 1000
         }
