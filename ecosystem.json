@@ -1,0 +1,11 @@
+{
+    "apps": [
+        {
+            "name": "MQTT-WebHook UI",
+            "script": "./uiServer.js"
+        }, {
+            "name": "HTTP-WebHook",
+            "script": "./httpHookServer.js"
+        }
+    ]
+}
