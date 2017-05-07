@@ -34,8 +34,10 @@ app.post("/:uName", function (req, res) {
                     if (req.headers['x-hub-signature'].split("=")[1] == computedSignature) {
                         testLog.log('Signature Matched');
                         mqttBuffer.push(Object.assign(hook, {uName: req.params.uName}))
+                    } else {
+                        testLog.log('Signature Did not match');
                     }
-                }
+                } 
             })
             res.status(200).send("Success")
         }
