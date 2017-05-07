@@ -17,6 +17,9 @@ app.use(logger('dev'))
 app.use(bodyParser.json({
     limit: '1mb'
 }))
+app.use(bodyParser.urlencoded({
+    extended: false
+}))
 
 var mqttBuffer = [] // Buffer(Queue) to Store Mqtt Ping for 1sec
 app.post("/:uName", function (req, res) {
