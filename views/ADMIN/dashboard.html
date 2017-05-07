@@ -31,7 +31,7 @@
                     <td md-cell>{{record.httpHook.event}}</td>
                     <td md-cell>{{record.httpHook.secret}}</td>
                     <td md-cell>{{record.mqttHook.broker}}</td>
-                    <td md-cell>{{record.mqttHook.topic}}</td>
+                    <td md-cell>/$mqttWebHook/{{currUser.uName}}{{record.mqttHook.topic}}</td>
                     <td md-cell>
                         <md-switch md-no-ink ng-model="record.enabled" ng-change="changeEnabled(record)" aria-label="enabled"></md-switch>
                     </td>
