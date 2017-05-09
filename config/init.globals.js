@@ -23,7 +23,7 @@ HelperResp.prototype.sendUnauth = function(res, comment) {
 }
 
 global.helper = new Helper(true)
-global.helperMongo = new HelperMongo(config.db.mongo.url, true)
+global.helperMongo = new HelperMongo(config.db.mongo.urls[config.env], true)
 global.helperResp = new HelperResp(true)
 global.helperValidate = new HelperValidate(true)
 global.helperTransform = new HelperTransform(true)

@@ -3,7 +3,7 @@ chai.use(require('chai-http'))
 
 var should = chai.should()
 var server = require("../../uiServer")
-var agent = chai.request.agent(server)
+var agent = chai.request.agent(server) 
 
 var jsonfile = require('jsonfile')
 var configFile = __dirname + "/../../config/config.json"
@@ -19,7 +19,7 @@ var db = mongo(config.db.mongo.urls[config.env])
 var Helper = require('server-helper').Helper
 var helper = new Helper(true)
 
-describe("USER- MqttWebHook /api/mqttWebHook", () => {
+describe("USER- MqttWebHook /api/mqtt-webhooks", () => {
     before((done) => {
         // create db and user in test db
         // Login
@@ -57,9 +57,13 @@ describe("USER- MqttWebHook /api/mqttWebHook", () => {
 
     after(done => {
         // drop test db
-        // db.dropDatabase(done)
-        done()
+        db.dropDatabase(done)
+        // db.users.remove({}, done)
+        // done()
     })
+
+
+    // BASIC CRUD tests
     it("should create a new mqttHook record POST /api/mqtt-webhooks", (done) => {
         var record = {
             name: "Test-Record",
@@ -137,7 +141,7 @@ describe("USER- MqttWebHook /api/mqttWebHook", () => {
     })
     it("should get a single record GET /api/mqtt-webhooks/:id", function(done) {
         var record = {
-            name: "Test-Record",
+            name: "Test-RecordGet1",
             httpHook: {
                 event: "asdf:asdf:asdf",
                 secret: "asdfasdf"
@@ -156,7 +160,7 @@ describe("USER- MqttWebHook /api/mqttWebHook", () => {
                 res.body.error.should.not.be.ok
                 res.body.data.should.be.an("object")
                 should.exist(res.body.data._id)
-                    // console.log('=============done1==========')
+                    console.log('=============done1==========')
 
                 agent
                     .get("/api/mqtt-webhooks/" + res.body.data._id)
@@ -172,7 +176,7 @@ describe("USER- MqttWebHook /api/mqttWebHook", () => {
                     })
             })
     })
-    it.only("should get a list of records GET /api/mqtt-webhooks", function(done) {
+    it("should get a list of records GET /api/mqtt-webhooks", function(done) {
         var record = {
             name: "Test-Record",
             httpHook: {
@@ -201,6 +205,7 @@ describe("USER- MqttWebHook /api/mqttWebHook", () => {
                         agent
                             .get("/api/mqtt-webhooks")
                             .then(res2 => {
+                                console.log('res.body:', res2.body);
                                 res2.should.have.status(200)
                                 res2.body.error.should.not.be.ok
                                 res2.body.data.should.be.an('object')
@@ -221,6 +226,75 @@ describe("USER- MqttWebHook /api/mqttWebHook", () => {
                     })
             })
     })
-    it("should update an existing record PUT /api/mqtt-webhooks/:id")
-    it("should delete a record DELETE /api/mqtt-webhooks/:id")
+    it("should update an existing record PUT /api/mqtt-webhooks/:id", done => {
+        var record = {
+            name: "record",
+            httpHook: {
+                event: "asdf:asdf:asdf",
+                secret: "asdf"
+            },
+            mqttHook: {
+                broker: "asdf",
+                topic: "/asdf"
+            }
+        }
+        agent.post("/api/mqtt-webhooks")
+            .send(record)
+            .then(res => {
+                res.should.have.status(200)
+
+                res.body.data.name = 'record2'
+
+                agent
+                    .put('/api/mqtt-webhooks/' + res.body.data._id)
+                    .send(res.body.data)
+                    .then(res1 => {
+                        res.should.have.status(200)
+                        res.body.error.should.not.be.ok
+                        
+                        agent.get("/api/mqtt-webhooks/" + res.body.data._id)
+                            .then(res3 => {
+                                res3.should.have.status(200)
+                                res3.body.error.should.not.be.ok
+                                res3.body.data.name.should.be.eql('record2')
+                                done()
+                            }) 
+
+                    })
+            })
+    })
+    it("should delete a record DELETE /api/mqtt-webhooks/:id", done => {
+        var record = {
+            name: "recordDelete",
+            httpHook: {
+                event: "asdf:asdf:asdf",
+                secret: "asdf"
+            },
+            mqttHook: {
+                broker: "asdf",
+                topic: "/asdf"
+            }
+        }
+        agent.post("/api/mqtt-webhooks")
+            .send(record)
+            .then(res => {
+                res.should.have.status(200)
+
+                agent.delete('/api/mqtt-webhooks/' + res.body.data._id)
+                    .then(res => {
+                        res.should.have.status(200)
+
+                        db.collection(mqttHookColl).findOne({
+                            _id: db.ObjectId(res.body.data._id)
+                        }, function(err, result) {
+                            should.not.exist(result)
+                            should.not.exist(err)
+                            done()
+                        })
+                    })
+            })
+    })
+
+    // Test Cases
+    it("should fetch the list only for the corresponding user GET /api/mqtt-webhooks")
 })

@@ -11,7 +11,7 @@ module.exports = function(req, res) {
             errLog.error(err)
         }
 
-        console.log('result:', result)
+        // console.log('result:', result)
 
         res.status(err ? 400 : 200).send({
             error: !!err,
