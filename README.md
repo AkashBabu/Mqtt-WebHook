@@ -87,3 +87,17 @@ Check logs
 
 
 ** You may need to run all the commands only on the first deployment and on further deployments you must run only the command after `Repeat on every deployment`
+
+<hr/>
+
+### Adding New Hooks  
+
+* Create an Account
+* Login into your Account
+* Create a new Hook
+* Go to github.com on your browser
+* Go to settings/webhooks
+* Add new Hook
+* Paste the URL given in the `Please note` section on the dashboard
+* Change content-type --> application/json
+* Disable SSL verfication as the certificates are self signed certificates

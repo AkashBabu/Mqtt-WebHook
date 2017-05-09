@@ -1,8 +1,13 @@
 {
-    "env": "DEV",
+    "env": "TEST",
     "db": {
         "mongo": {
-            "url": "mongodb://localhost:27017/mqttWebHook?maxPoolSize=5"
+            "url": "mongodb://localhost:27017/mqttWebHook?maxPoolSize=5",
+            "urls": {
+                "TEST": "mongodb://localhost:27017/mqttWebHook_test?maxPoolSize=5",
+                "DEV": "mongodb://localhost:27017/mqttWebHook?maxPoolSize=5",
+                "PROD": "mongodb://localhost:27017/mqttWebHook?maxPoolSize=5"
+            }
         },
         "redis": {
             "host": "localhost",
@@ -20,12 +25,14 @@
     "server": {
         "ui": {
             "port": {
+                "TEST": 8000,
                 "DEV": 8000,
                 "PROD": 8000
             }
         },
         "httpHook": {
             "port": {
+                "TEST": 8001,
                 "DEV": 8001,
                 "PROD": 8001
             },
@@ -35,5 +42,8 @@
     "mqttHook": {
         "interval": 1000,
         "topicBase": "/$mqttWebHook"
+    },
+    "user": {
+        "limit": 20
     }
 }

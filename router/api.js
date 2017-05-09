@@ -5,7 +5,21 @@ router.get("/logout", function(req, res) {
     helperResp.sendOk(res, "Successfully Logged Out")
 })
 
-router.use("/mqtt-webhooks", require("./routes/mqttHooks/routes"))
-router.use("/users", require("./routes/users/routes"))
+var roleRouter = {
+    ADMIN: (require("./routes/ADMIN/router")),
+    USER: (require("./routes/USER/router")),
+}
+
+router.use(function(req, res, next) {
+    var role = req.user.role;
+
+    var roleRoutes = roleRouter[role]
+
+    if (!roleRoutes) {
+        helperResp.sendUnauth(res)
+    } else {
+        roleRoutes(req, res, next)
+    }
+})
 
 module.exports = router

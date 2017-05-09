@@ -8,29 +8,8 @@
     <link rel="stylesheet" href="/static/lib/angular-material/angular-material.min.css">
     <link rel="stylesheet" href="/static/lib/angular-material/angular-material-icons.css">
     <link rel="stylesheet" href="/static/lib/angular-material-data-table/md-data-table.min.css">
-    <style>
-        body {
-            background-color: yellow;
-        }
-        
-        .form {
-            background-color: yellow;
-        }
-        
-        md-toast.md-center {
-            left: 50%;
-            transform: translate3d(-50%, 0, 0);
-        }
-        
-        md-sidenav a {
-            font-size: 120%;
-            font-weight: bold;
-        }
-        
-        md-sidenav .sidenav-item:hover {
-            background-color: rgba(158, 158, 158, 0.2);
-        }
-    </style>
+
+    <link rel="stylesheet" href="/static/css/ADMIN/main.css">
     <!--<base href="/portal">-->
 </head>
 
@@ -61,9 +40,8 @@
         </div>
     </md-toolbar>
 
-    <div flex layout="row">
-        <md-sidenav ng-cloak flex="15" flex-xs="100" flex-sm="100" flex-gt-lg="10" layout="column" layout-padding layout-align="start center"
-            class="md-sidenav-left" md-whiteframe="15" md-is-locked-open="showSidenav" style="overflow-y: auto;">
+    <div flex layout="column">
+        <md-sidenav ng-cloak flex="15" flex-xs="100" flex-sm="100" flex-gt-lg="10" layout="column" layout-padding layout-align="start center" class="md-sidenav-left" md-whiteframe="15" md-is-locked-open="showSidenav" style="overflow-y: auto;">
             <div class="sidenav-item" layout="column" layout-align="start center" ng-click="changeLocation(('dashboard' | routeSegmentUrl))">
                 <img class="png-icon" src="/static/img/list.png" alt="">
                 <md-button flex="10" aria-label="Dashboard" ng-href="{{'#!' + ('dashboard' | routeSegmentUrl)}}">

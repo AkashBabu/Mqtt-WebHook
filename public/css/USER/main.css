@@ -1,0 +1,13 @@
+md-toast.md-center {
+    left: 50%;
+    transform: translate3d(-50%, 0, 0);
+}
+
+md-sidenav a {
+    font-size: 120%;
+    font-weight: bold;
+}
+
+md-sidenav .sidenav-item:hover {
+    background-color: rgba(158, 158, 158, 0.2);
+}

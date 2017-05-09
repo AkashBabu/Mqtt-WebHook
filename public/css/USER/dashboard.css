@@ -1,0 +1,17 @@
+/*table tbody tr md-row:hover {
+    background-color: rgba(210, 210, 210, 0.5);
+}
+
+table>tbody>tr:hover {
+    background: rgba(210, 210, 210, 0.5);
+}
+
+table.md-table tbody.md-body>tr.md-row,
+table.md-table tfoot.md-foot>tr.md-row:hover {
+    background: rgba(210, 210, 210, 0.5) !important;
+}*/
+
+.hovered {
+    background-color: rgba(210, 210, 210, 0.2);
+    cursor: pointer;
+}
