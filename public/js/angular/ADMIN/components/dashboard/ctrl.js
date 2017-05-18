@@ -8,11 +8,14 @@ app.controller('dashboardCtrl', function ($rootScope, $scope, $mdToast, $mdDialo
     var formErrTP
     $scope.addRecordForm = true;
     dashboardCtrl.addRecordForm = true;
-    $scope.currUser = {}
+    // $scope.currUser = {}
 
-    $scope.$on("UserInfo", function() {
-        $scope.currUser = UserInfo.getUser()
-    })
+    $scope.currUser = function() {
+        return UserInfo.getUser()
+    }
+    // $scope.$on("UserInfo", function() {
+    //     $scope.currUser = UserInfo.getUser()
+    // })
 
     $scope.selected = []
     function refreshRecord() {

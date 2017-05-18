@@ -29,28 +29,29 @@ app.config(function($locationProvider, $routeProvider, $routeSegmentProvider, $m
             // $locationProvider.html5Mode(true)
     })
     .factory("UserInfo", function() {
-        this.user = {}
-        var self = this;
-        return {
-            setUser: function(user) {
-                self.user = user;
-            },
-            getUser: function() {
-                return self.user;
-            }
+        function User () {
+            // var self = this;
+            this.user = {}
         }
+        return new User()
     })
+    // .service("UserInfo", function() {
+    //     this.user = {}
+
+    //     this.setUser = function
+    // })
     .run(function($rootScope, $resource, $timeout, UserInfo) {
         var User = $resource("/api/users/current")
-        $timeout(function() {
+        // $timeout(function() {
 
             User.get(function(res) {
-                UserInfo.setUser(res.data)
-                console.log('broadCasting Event');
-                $rootScope.$broadcast("UserInfo")
+                // UserInfo.setUser(res.data)
+                UserInfo.user = res.data;
+                // console.log('broadCasting Event');
+                // $rootScope.$broadcast("UserInfo")
                     // $rootScope.$emit("UserInfo")
             }, function(res) {
                 console.error('Failed to get Current User');
             })
-        }, 1000)
+        // }, 1000)
     })

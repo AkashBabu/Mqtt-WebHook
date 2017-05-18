@@ -11,7 +11,26 @@ table.md-table tfoot.md-foot>tr.md-row:hover {
     background: rgba(210, 210, 210, 0.5) !important;
 }*/
 
+table tbody>tr>td {
+    color: white !important;
+}
+
+table>tbody>tr {
+    transition: all linear 0.3s;
+}
+
 .hovered {
     background-color: rgba(210, 210, 210, 0.2);
     cursor: pointer;
+}
+
+/*md-switch.enable-switch md-bar {
+    background-color: 
+}*/
+md-switch.enable-switch.md-checked md-bar {
+    background-color: rgba(48, 221, 109, 0.8)
+}
+
+md-switch.enable-switch.md-checked md-thumb {
+    background-color: rgba(48, 221, 109, 0.8)
 }

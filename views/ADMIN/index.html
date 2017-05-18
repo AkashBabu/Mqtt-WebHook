@@ -40,7 +40,7 @@
         </div>
     </md-toolbar>
 
-    <div flex layout="column">
+    <div class="main-div" flex layout="column">
         <md-sidenav ng-cloak flex="15" flex-xs="100" flex-sm="100" flex-gt-lg="10" layout="column" layout-padding layout-align="start center" class="md-sidenav-left" md-whiteframe="15" md-is-locked-open="showSidenav" style="overflow-y: auto;">
             <div class="sidenav-item" layout="column" layout-align="start center" ng-click="changeLocation(('dashboard' | routeSegmentUrl))">
                 <img class="png-icon" src="/static/img/list.png" alt="">
@@ -58,7 +58,7 @@
             <div layout="row" layout-align="start center" layout-align-xs="center center" layout-align-sm="center center" layout-align-gt-sm="start center">
             </div>-->
         </md-sidenav>
-        <md-content flex class="green" layout-padding style="overflow-y: auto;">
+        <md-content flex class="green main-div" layout-padding style="overflow-y: auto;">
             <div app-view-segment="0"></div>
         </md-content>
 

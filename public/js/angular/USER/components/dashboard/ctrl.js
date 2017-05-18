@@ -1,4 +1,4 @@
-app.controller('dashboardCtrl', function($rootScope, $scope, $mdToast, $mdDialog, $q, $timeout, recordService, UserInfo) {
+app.controller('dashboardCtrl', function($scope, $mdToast, $mdDialog, $q, $timeout, recordService, UserInfo) {
     console.log('Dashboard Ctrl');
     var dashboardCtrl = this;
     var update = false;
@@ -8,13 +8,19 @@ app.controller('dashboardCtrl', function($rootScope, $scope, $mdToast, $mdDialog
     var formErrTP
     $scope.addRecordForm = true;
     dashboardCtrl.addRecordForm = true;
-    $scope.currUser = {}
+    // $scope.currUser = {}
 
+    $scope.currUser = UserInfo
+    // $scope.currUser = function() {
+    //     var user = UserInfo.getUser()
+    //     console.log('dash user:', user)
+    //     return user;
+    //     // return UserInfo.getUser()
+    // }
 
-
-    $scope.$on("UserInfo", function() {
-        $scope.currUser = UserInfo.getUser()
-    })
+    // $scope.$on("UserInfo", function() {
+    //     $scope.currUser = UserInfo.getUser()
+    // })
 
     $scope.selected = []
 
@@ -34,20 +40,20 @@ app.controller('dashboardCtrl', function($rootScope, $scope, $mdToast, $mdDialog
         }, timeout)
     }
 
-    var selectedWatch = $scope.$watch("selected", function() {
-        console.log('$scope.selected Changed');
-        if ($scope.selected.length > 0) {
-            console.log('selected length > 0');
-            $scope.showAddRecord = false
-        } else {
-            $scope.showAddRecord = true
-        }
-    })
-    $scope.$on("$destroy", function() {
-        if (selectedWatch) {
-            selectedWatch()
-        }
-    })
+    // var selectedWatch = $scope.$watch("selected", function() {
+    //     console.log('$scope.selected Changed');
+    //     if ($scope.selected.length > 0) {
+    //         console.log('selected length > 0');
+    //         $scope.showAddRecord = false
+    //     } else {
+    //         $scope.showAddRecord = true
+    //     }
+    // })
+    // $scope.$on("$destroy", function() {
+    //     if (selectedWatch) {
+    //         selectedWatch()
+    //     }
+    // })
 
 
     $scope.query = {

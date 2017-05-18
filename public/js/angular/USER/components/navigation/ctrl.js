@@ -1,7 +1,16 @@
-app.controller("NavCtrl", function($window, $location, $scope, $mdSidenav, $mdMedia, logoutService) {
-    console.log('Navigation Controller');
+app.controller("NavCtrl", function($window, $location, $scope, $mdSidenav, $mdMedia, $timeout, logoutService, UserInfo) {
+    console.log('User Navigation Controller');
 
     // $scope.showSidenav = $mdMedia('gt-md')
+    // this.currUser = UserInfo.user
+    $scope.currUser = UserInfo;
+    // $scope.currUser = function() {
+    //     var user = UserInfo.getUser();
+    //     console.log("user:", user)
+    //     return user;
+    //     // return UserInfo.getUser();
+    // } 
+
     $scope.showSidenav = false
 
     $scope.openSidenav = function() {

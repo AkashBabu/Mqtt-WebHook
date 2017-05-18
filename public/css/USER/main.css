@@ -1,3 +1,12 @@
+body, .bkgd-img {
+    background-image: url("/static/img/bkgd/46904091-wallpaper-blur.jpg") !important;
+    color: white;
+}
+
+.navbar {
+    background: rgba(200, 200, 200, 0.2) !important;
+}
+
 md-toast.md-center {
     left: 50%;
     transform: translate3d(-50%, 0, 0);

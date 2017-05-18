@@ -153,12 +153,29 @@
                 }
 
                 this.login = function() {
-                    console.log('Clicked Login');
-                    loginService.login($scope.loginUser, function(data) {
+                    // console.log('Clicked Login');
+                    loginService.login($scope.loginUser, function(res) {
+                        // console.log("Login Success:", res)
 
-                        $window.location.href = "/portal/index"
+                        // if(res.data.error){
+                        //     console.log('failed Login');
+                        //     $scope.invalidCredentials = true
+                        //     if (invalidCredTP) {
+                        //         $timeout.cancel(invalidCredTP)
+                        //     }
+                        //     invalidCredTP = $timeout(function() {
+                        //         $scope.invalidCredentials = false
+                        //     }, 5000)
+                        // } else {
+                        //     $timeout(function(){
+                                $window.location.href = "/portal/index"
+                            // }, 20000)
+                            
+                        // }
+
 
                     }, function(data) {
+                        console.log('failed Login');
                         $scope.invalidCredentials = true
                         if (invalidCredTP) {
                             $timeout.cancel(invalidCredTP)

@@ -1,10 +1,10 @@
-<md-content layout="column" layout-align="center start" layout-padding md-whiteframe="3">
-    <md-toolbar class="md-warn md-hue-3" layout="row" layout-align="start center">
+<md-content layout="column" layout-align="center start" layout-padding md-whiteframe="5" style="background: transparent; color: white;">
+    <md-toolbar md-colors="{background: 'default-warn-500-0.6'}" layout="row" layout-align="start center">
         <span flex>Please Note:</span>
     </md-toolbar>
     <p>
-        WebHook URL: <code ng-cloak>https://52.39.13.152/{{currUser.uName}}</code>
-        <br> Mqtt Topic: <code ng-cloak>/$mqttWebHook/{{currUser.uName}}/&lt;MQTT Hook&gt;</code>
+        WebHook URL: <code ng-cloak>https://52.39.13.152/{{currUser.user.uName}}</code>
+        <br> Mqtt Topic: <code ng-cloak>/$mqttWebHook/{{currUser.user.uName}}/&lt;MQTT Hook&gt;</code>
     </p>
 </md-content>
 <br>
@@ -13,7 +13,7 @@
 <div md-whiteframe="5">
     <md-table-container>
         <table md-table md-progress="promise">
-            <thead md-head md-order="query.sort" md-on-reorder="getList" md-colors="{background: 'primary-A100-0.6'}">
+            <thead md-head md-order="query.sort" md-on-reorder="getList" md-colors="{background: 'accent-A100-0.3'}">
                 <tr md-row>
                     <th md-column md-order-by="name"><span>Name</span></th>
                     <th md-column md-order-by="httpHookEvent"><span>WebHook Event(event:reponame:ref)</span></th>
@@ -29,9 +29,9 @@
                     <td md-cell>{{record.httpHook.event}}</td>
                     <td md-cell>{{record.httpHook.secret}}</td>
                     <td md-cell>{{record.mqttHook.broker}}</td>
-                    <td md-cell>/$mqttWebHook/{{currUser.uName}}{{record.mqttHook.topic}}</td>
+                    <td md-cell>/$mqttWebHook/{{currUser.user.uName}}{{record.mqttHook.topic}}</td>
                     <td md-cell ng-click="stopPropagation($event)">
-                        <md-switch md-no-ink ng-model="record.enabled" ng-change="changeEnabled(record)" aria-label="enabled"></md-switch>
+                        <md-switch class="enable-switch" md-no-ink ng-model="record.enabled" ng-change="changeEnabled(record)" aria-label="enabled"></md-switch>
                     </td>
                     <!--<td md-cell>
                         <div layout="row">

@@ -16,18 +16,21 @@
 
 <body ng-app="app" ng-controller="NavCtrl as ctrl" layout="column">
 
-    <md-toolbar class="navbar md-primary" ng-cloak>
+    <md-toolbar class="navbar md-primary" ng-cloak md-whiteframe="10">
         <div class="md-toolbar-tools">
             <div layout="row" layout-align="space-between center" layout-fill>
                 <md-button class="md-icon-button" md-ripple-size="auto" md-no-ink="false" aria-label="button-label" ng-click="openSidenav()">
                     <!--<i class="material-icons">dehaze</i>-->
                     <md-icon class="material-icons step">dehaze</md-icon>
                 </md-button>
-                <h1><span>MQTT WebHook - USER</span></h1>
+                <h1><span>MQTT WebHook - USER , Welcome {{currUser.user.name}}</span></h1>
                 <md-menu-bar>
                     <md-menu>
                         <md-button aria-label="label" class="md-icon-button" md-no-ink ng-click="$mdMenu.open()" md-prevent-menu-close="md-prevent-menu-close">
                             <md-icon class="material-icons step">person</md-icon>
+                            <div class="compact">
+                                <h3>{{currUser.user.uName}}</h3>
+                            </div>
                             <!--<i class="material-icons">person</i>-->
                         </md-button>
                         <md-menu-content width="2">
@@ -59,7 +62,7 @@
             <div layout="row" layout-align="start center" layout-align-xs="center center" layout-align-sm="center center" layout-align-gt-sm="start center">
             </div>-->
         </md-sidenav>
-        <md-content flex class="green" layout-padding style="overflow-y: auto;">
+        <md-content flex class="green bkgd-img" layout-padding style="overflow-y: auto;">
             <div app-view-segment="0"></div>
         </md-content>
 
