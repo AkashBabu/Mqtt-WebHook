@@ -15,12 +15,20 @@ table tbody>tr>td {
     color: white !important;
 }
 
+table {
+    background-color: rgba(226, 210, 210, 0.1);
+}
+
 table>tbody>tr {
     transition: all linear 0.3s;
 }
 
+.pagination {
+    background-color: rgba(226, 210, 210, 0.1);
+}
+
 .hovered {
-    background-color: rgba(210, 210, 210, 0.2);
+    background-color: rgba(210, 210, 210, 0.3);
     cursor: pointer;
 }
 

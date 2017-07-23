@@ -1,4 +1,4 @@
-<md-content layout="column" layout-align="center start" layout-padding md-whiteframe="5" style="background: transparent; color: white;">
+<md-content layout="column" layout-align="center start" layout-padding md-whiteframe="5" style="background-color: rgba(226, 210, 210, 0.1); color: white;">
     <md-toolbar md-colors="{background: 'default-warn-500-0.6'}" layout="row" layout-align="start center">
         <span flex>Please Note:</span>
     </md-toolbar>
@@ -24,7 +24,8 @@
                 </tr>
             </thead>
             <tbody md-body ng-init="hovered={}">
-                <tr ng-click="editRecordDialog($event, record, $index)" md-row ng-repeat="record in records.list" ng-class="{hovered: !!hovered[$index]}" ng-mouseenter="hovered[$index]=true" ng-mouseleave="hovered[$index]=false">
+                <tr ng-click="editRecordDialog($event, record, $index)" md-row ng-repeat="record in records.list" ng-class="{hovered: !!hovered[$index]}"
+                    ng-mouseenter="hovered[$index]=true" ng-mouseleave="hovered[$index]=false">
                     <td md-cell>{{record.name}}</td>
                     <td md-cell>{{record.httpHook.event}}</td>
                     <td md-cell>{{record.httpHook.secret}}</td>
@@ -47,14 +48,17 @@
             </tbody>
         </table>
     </md-table-container>
-    <div layout="row" layout-align="space-between center">
-        <md-button ng-show="showAddRecord" id="addRecord" class="md-fab md-mini" md-colors="{background: 'green'}" aria-label="Add-Record" md-no-ink ng-click="addRecordDialog($event)">
+    <div class="pagination" layout="row" layout-align="space-between center">
+        <md-button ng-show="showAddRecord" id="addRecord" class="md-fab md-mini" md-colors="{background: 'green'}" aria-label="Add-Record"
+            md-no-ink ng-click="addRecordDialog($event)">
             <md-icon aria-label="add_record" class="material-icons">add</md-icon>
         </md-button>
-        <md-button ng-hide="showAddRecord" id="deleteRecord" class="md-icon-button" md-colors="{color: 'blue-grey'}" aria-label="Delete-Record" md-no-ink ng-click="removeRecords()">
+        <md-button ng-hide="showAddRecord" id="deleteRecord" class="md-icon-button" md-colors="{color: 'blue-grey'}" aria-label="Delete-Record"
+            md-no-ink ng-click="removeRecords()">
             <md-icon aria-label="delete_records" class="material-icons">delete</md-icon>
         </md-button>
-        <md-table-pagination flex md-limit="query.recordsPerPage" md-limit-options="[5, 10, 15, 20]" md-page="query.pageNo" md-total="{{records.count}}" md-on-paginate="getList" md-page-select></md-table-pagination>
+        <md-table-pagination flex md-limit="query.recordsPerPage" md-limit-options="[5, 10, 15, 20]" md-page="query.pageNo" md-total="{{records.count}}"
+            md-on-paginate="getList" md-page-select></md-table-pagination>
     </div>
 
 </div>
@@ -94,7 +98,8 @@
                         </div>
                     </div>
                 </md-input-container>
-                <md-autocomplete flex md-input-name="broker" md-input-minlength="1" md-input-maxlength="50" md-selected-item="record.mqttHook.broker" md-search-text="ctrl.searchText" md-items="item in ctrl.querySearch(ctrl.searchText)" md-selected-item-change="ctrl.brokerChanged(item)"
+                <md-autocomplete flex md-input-name="broker" md-input-minlength="1" md-input-maxlength="50" md-selected-item="record.mqttHook.broker"
+                    md-search-text="ctrl.searchText" md-items="item in ctrl.querySearch(ctrl.searchText)" md-selected-item-change="ctrl.brokerChanged(item)"
                     md-item-text="item" md-floating-label="Public Broker">
                     <md-item-template>
                         <span md-highlight-text="ctrl.searchText">{{item}}</span>
@@ -125,8 +130,10 @@
             </div>
 
             <div class="md-inline">
-                <md-button ng-if="addRecordForm" ng-disabled="!recordForm.$valid" ng-click="saveRecord()" class="dialog-class md-raised" md-colors="{background: 'default-green'}" aria-label="Save">Save</md-button>
-                <md-button ng-if="!addRecordForm" ng-disabled="!recordForm.$valid" ng-click="updateRecord()" class="dialog-class md-raised md-primary" aria-label="Update">Update</md-button>
+                <md-button ng-if="addRecordForm" ng-disabled="!recordForm.$valid" ng-click="saveRecord()" class="dialog-class md-raised"
+                    md-colors="{background: 'default-green'}" aria-label="Save">Save</md-button>
+                <md-button ng-if="!addRecordForm" ng-disabled="!recordForm.$valid" ng-click="updateRecord()" class="dialog-class md-raised md-primary"
+                    aria-label="Update">Update</md-button>
                 <md-button ng-click="cancelDialog()" class="dialog-class" aria-label="Cancel"> Cancel </md-button>
             </div>
         </md-dialog-actions>

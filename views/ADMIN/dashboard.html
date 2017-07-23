@@ -1,11 +1,10 @@
-<md-content layout="column" layout-align="center start" layout-padding md-whiteframe="5" style="background: transparent;">
+<md-content layout="column" layout-align="center start" layout-padding md-whiteframe="5" style="background-color: rgba(226, 210, 210, 0.1);;">
     <md-toolbar class="md-warn md-hue-1" layout="row" layout-align="start center">
         <span flex>Please Note:</span>
     </md-toolbar>
     <p>
         WebHook URL: <code ng-cloak>https://52.39.13.152/{{currUser.uName}}</code>
-        <br> 
-        Mqtt Topic: <code ng-cloak>/$mqttWebHook/{{currUser.uName}}/&lt;MQTT Hook&gt;</code>
+        <br> Mqtt Topic: <code ng-cloak>/$mqttWebHook/{{currUser.uName}}/&lt;MQTT Hook&gt;</code>
     </p>
 </md-content>
 <br>
@@ -70,68 +69,70 @@
             <h2 ng-cloak ng-if="addRecordForm" class="md-title">Add Record Form</h2>
             <h2 ng-cloak ng-if="!addRecordForm" class="md-title">Edit Record Form</h2>
         </div>
-       <md-dialog-content>
-          <form name="recordForm" ng-cloak>
-            <md-input-container class="md-block">
-                <label>Name</label>
-                <input type="text" name="name" md-autofocus ng-model="record.name" required >
-                <div ng-messages="recordForm.name.$error" role="alert" multiple="">
-                    <div ng-message="required">
-                        Please enter a Name
+        <md-dialog-content>
+            <form name="recordForm" ng-cloak>
+                <md-input-container class="md-block">
+                    <label>Name</label>
+                    <input type="text" name="name" md-autofocus ng-model="record.name" required>
+                    <div ng-messages="recordForm.name.$error" role="alert" multiple="">
+                        <div ng-message="required">
+                            Please enter a Name
+                        </div>
                     </div>
-                </div>
-            </md-input-container>
-            <md-input-container class="md-block">
-                <label>Web Hook (event:reponame:ref)</label>
-                <input type="text" name="webHook" ng-pattern="/^[^:]+:[^:]+:[^:]+$/" ng-model="record.httpHook.event" required >
-                <div ng-messages="recordForm.webHook.$error" role="alert" multiple="false">
-                    <div ng-message="pattern">
-                        Invalid WehHook. (Ex: push:example:refs/heads/master)
-                    </div>
-                    <!--<div ng-message="required">
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Web Hook (event:reponame:ref)</label>
+                    <input type="text" name="webHook" ng-pattern="/^[^:]+:[^:]+:[^:]+$/" ng-model="record.httpHook.event" required>
+                    <div ng-messages="recordForm.webHook.$error" role="alert" multiple="false">
+                        <div ng-message="pattern">
+                            Invalid WehHook. (Ex: push:example:refs/heads/master)
+                        </div>
+                        <!--<div ng-message="required">
                         Please enter a WebHook Event
                     </div>-->
-                </div>
-            </md-input-container>
-            <md-input-container class="md-block">
-                <label>WebHook - Secret</label>
-                <input type="text" name="secret" ng-model="record.httpHook.secret" required >
-                <div ng-messages="recordForm.secret.$error" role="alert" multiple="">
-                    <div ng-message="required">
-                        Please enter a Secret for Http Hook
                     </div>
-                </div>
-            </md-input-container>
-            <md-input-container class="md-block">
-                <label>MQTT Broker</label>
-                <input type="text" name="broker" ng-model="record.mqttHook.broker" required >
-                <div ng-messages="recordForm.broker.$error" role="alert" multiple="">
-                    <div ng-message="required">
-                        Please enter a MQTT Broker
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>WebHook - Secret</label>
+                    <input type="text" name="secret" ng-model="record.httpHook.secret" required>
+                    <div ng-messages="recordForm.secret.$error" role="alert" multiple="">
+                        <div ng-message="required">
+                            Please enter a Secret for Http Hook
+                        </div>
                     </div>
-                </div>
-            </md-input-container>
-            <md-input-container class="md-block">
-                <label>MQTT Topic</label>
-                <input type="text" name="topic" ng-pattern="/^\/[^#+]+$/" ng-model="record.mqttHook.topic" required >
-                <div ng-messages="recordForm.topic.$error" role="alert" multiple="">
-                    <div ng-message="pattern">
-                        Invalid Topic. (Ex: /example/topic)
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>MQTT Broker</label>
+                    <input type="text" name="broker" ng-model="record.mqttHook.broker" required>
+                    <div ng-messages="recordForm.broker.$error" role="alert" multiple="">
+                        <div ng-message="required">
+                            Please enter a MQTT Broker
+                        </div>
                     </div>
-                    <!--<div ng-message="required">
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>MQTT Topic</label>
+                    <input type="text" name="topic" ng-pattern="/^\/[^#+]+$/" ng-model="record.mqttHook.topic" required>
+                    <div ng-messages="recordForm.topic.$error" role="alert" multiple="">
+                        <div ng-message="pattern">
+                            Invalid Topic. (Ex: /example/topic)
+                        </div>
+                        <!--<div ng-message="required">
                         Please enter a MQTT Topic
                     </div>-->
+                    </div>
+                </md-input-container>
+                <div layout="row" layout-align="center" layout-fill ng-if="formErrMsg" role="alert">
+                    <span ng-bind="formErrMsg"></span>
                 </div>
-            </md-input-container>
-            <div layout="row" layout-align="center" layout-fill ng-if="formErrMsg" role="alert">
-                <span ng-bind="formErrMsg"></span>
-            </div>
-          </form>
-       </md-dialog-content>
-       <md-dialog-actions>
-          <md-button ng-if="addRecordForm" ng-disabled="!recordForm.$valid" ng-click="saveRecord()" class="dialog-class md-raised" md-colors="{background: 'default-green'}" aria-label="Save">Save</md-button>
-          <md-button ng-if="!addRecordForm" ng-disabled="!recordForm.$valid" ng-click="updateRecord()" class="dialog-class md-raised md-primary" aria-label="Update">Update</md-button>
-          <md-button ng-click="cancelDialog()" class="dialog-class" aria-label="Cancel"> Cancel </md-button>
-       </md-dialog-actions>
+            </form>
+        </md-dialog-content>
+        <md-dialog-actions>
+            <md-button ng-if="addRecordForm" ng-disabled="!recordForm.$valid" ng-click="saveRecord()" class="dialog-class md-raised"
+                md-colors="{background: 'default-green'}" aria-label="Save">Save</md-button>
+            <md-button ng-if="!addRecordForm" ng-disabled="!recordForm.$valid" ng-click="updateRecord()" class="dialog-class md-raised md-primary"
+                aria-label="Update">Update</md-button>
+            <md-button ng-click="cancelDialog()" class="dialog-class" aria-label="Cancel"> Cancel </md-button>
+        </md-dialog-actions>
     </md-dialog>
 </script>
